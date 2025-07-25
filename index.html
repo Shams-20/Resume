@@ -1268,38 +1268,78 @@
                     <a href="#" class="social-link">🌐</a>
                 </div>
             </div>
-            <div class="contact-form slide-in-right">
-                <h3 class="form-title">Ready to Hire Me?</h3>
-                <form id="contactForm" action="https://formspree.io/f/mqalqqor" method="POST">
 
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company/Organization</label>
-                        <input type="text" id="company" name="company">
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project or opportunity..."></textarea>
-                    </div>
-                                        <button type="submit" class="form-submit">
-                        🚀 Send Message
-                    </button>
-                    <div class="success-message" id="successMessage">
-                        ✅ Thank you! Your message has been sent successfully. I'll get back to you within 24 hours.
-                    </div>
-                </form>
-            </div>
+            <div class="contact-form slide-in-right">
+  <h3 class="form-title">Ready to Hire Me?</h3>
+  <form id="contactForm" action="https://formspree.io/f/mqalqqor" method="POST">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+    <div class="form-group">
+      <label for="company">Company/Organization</label>
+      <input type="text" id="company" name="company" />
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject" required />
+    </div>
+    <div class="form-group">
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project or opportunity..."></textarea>
+    </div>
+    <button type="submit" class="form-submit">🚀 Send Message</button>
+    <div class="success-message" id="successMessage" style="display: none;">
+      ✅ Thank you! Your message has been sent successfully.
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const submitBtn = form.querySelector('.form-submit');
+    const successMessage = document.getElementById('successMessage');
+
+    submitBtn.innerHTML = '⏳ Sending...';
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: data,
+      });
+
+      if (response.ok) {
+        form.reset();
+        successMessage.style.display = 'block';
+      } else {
+        const result = await response.json();
+        alert(`💀 Error: ${result.error || 'Something broke and it’s YOUR fault'}`);
+      }
+    } catch (err) {
+      alert('🧨 Error sending message. Check your internet, dumbass.');
+      console.error(err);
+    } finally {
+      submitBtn.innerHTML = '🚀 Send Message';
+      submitBtn.disabled = false;
+
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 5000);
+    }
+  });
+</script>
+
         </div>
     </section>
 
