@@ -25,6 +25,20 @@
             --glass-border: rgba(255, 255, 255, 0.1);
         }
 
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: transparent; 
+            backdrop-filter: blur(3px);
+            color: #aaa;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 6px 0;
+            z-index: 99;
+        }
+
+        
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark-bg);
@@ -1268,9 +1282,11 @@
                         <a href="https://linkedin.com/in/shams-shaikh" class="social-link" target="_blank" title="LinkedIn">
                             <i class="fab fa-linkedin"></i>
                         </a>
+                        <!--
                         <a href="https://github.com/shamsxshaikh" class="social-link" target="_blank" title="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
+                        -->
                         <a href="https://drive.google.com/file/d/1stEpfsuQ3VAD8db-0XlzM5d5DN_fsEvF/view?usp=sharing" class="social-link" target="_blank" title="Resume">
                             <i class="fas fa-file-alt"></i>
                         </a>
@@ -1333,10 +1349,10 @@
                     successMessage.style.display = 'block';
                   } else {
                     const result = await response.json();
-                    alert(`💀 Error: ${result.error || 'Something broke and it’s YOUR fault'}`);
+                    alert(`💀 Error: ${result.error || 'Something broken- ERROR'}`);
                   }
                 } catch (err) {
-                  alert('🧨 Error sending message. Check your internet, dumbass.');
+                  alert('🧨 Error sending message. Check your internet.');
                   console.error(err);
                 } finally {
                   submitBtn.innerHTML = '🚀 Send Message';
