@@ -1268,10 +1268,10 @@
                     <a href="#" class="social-link">🌐</a>
                 </div>
             </div>
-
             <div class="contact-form slide-in-right">
                 <h3 class="form-title">Ready to Hire Me?</h3>
-                <form id="contactForm">
+                <form id="contactForm" action="https://formspree.io/f/mqalqqor" method="POST">
+
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input type="text" id="name" name="name" required>
@@ -1295,9 +1295,47 @@
                     <button type="submit" class="form-submit">
                         🚀 Send Message
                     </button>
-                    <div class="success-message" id="successMessage">
-                        ✅ Thank you! Your message has been sent successfully. I'll get back to you within 24 hours.
-                    </div>
+                   <script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // keep this for AJAX
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    const submitBtn = document.querySelector('.form-submit');
+    const successMessage = document.getElementById('successMessage');
+
+    submitBtn.innerHTML = '⏳ Sending...';
+    submitBtn.disabled = true;
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            form.reset();
+            successMessage.style.display = 'block';
+            submitBtn.innerHTML = '🚀 Send Message';
+            submitBtn.disabled = false;
+
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        } else {
+            alert('💀 Error: something went wrong.');
+        }
+
+    } catch (error) {
+        alert('🧨 Error sending message.');
+        console.error(error);
+    }
+});
+</script>
                 </form>
             </div>
         </div>
